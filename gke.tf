@@ -14,7 +14,7 @@ variable "gke_num_nodes" {
 }
 
 # GKE cluster
-resource "google_container_cluster" "krala-gke" {
+resource "google_container_cluster" "primary" {
   name     = "krala-gke"
   location = "asia-east1-a"
 
@@ -29,10 +29,10 @@ resource "google_container_cluster" "krala-gke" {
 }
 
 # Separately Managed Node Pool
-resource "google_container_node_pool" "krala-gke_nodes" {
-  name       = google_container_cluster.krala-gke.name
+resource "google_container_node_pool" "primary_nodes" {
+  name       = google_container_cluster.primary.name
   location   = "asia-east1-b"
-  cluster    = google_container_cluster.krala-gke.name
+  cluster    = google_container_cluster.primary.name
   node_count = var.gke_num_nodes
 
   node_config {
