@@ -6,7 +6,7 @@ variable "project_id" {
 provider "google" {
   project     = var.project_id
   region      = "us-central1"
-  credentials = "/var/lib/jenkins/workspace/jenkins-terraform-gke/gke-vpc-subnet/sa.json"
+  credentials = "/var/lib/jenkins/workspace/jenkins-terraform-gke/sa.json"
 }
 
 # VPC
