@@ -5,7 +5,7 @@ variable "project_id" {
 
 provider "google" {
   project     = var.project_id
-  region      = "us-central1"
+  region      = "asia-east1"
   credentials = "/var/lib/jenkins/workspace/jenkins-terraform-gke/sa.json"
 }
 
@@ -18,7 +18,7 @@ resource "google_compute_network" "vpc" {
 # Subnet
 resource "google_compute_subnetwork" "subnet" {
   name          = "krala-subnet"
-  region        = "us-central1"
+  region        = "asia-east1"
   network       = google_compute_network.vpc.name
   ip_cidr_range = "10.10.0.0/24"
 }

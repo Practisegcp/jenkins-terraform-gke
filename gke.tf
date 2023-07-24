@@ -9,20 +9,20 @@ variable "gke_password" {
 }
 
 variable "gke_num_nodes" {
-  default     = 1
+  default     = 3
   description = "number of gke nodes"
 }
 
 # GKE cluster
 resource "google_container_cluster" "primary" {
   name     = "krala-gke"
-  location = "us-central1-a"
+  location = "asia-east1-a"
 
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
   # node pool and immediately delete it.
   remove_default_node_pool = true
-  initial_node_count       = 3
+  initial_node_count       = 1
 
   network    = google_compute_network.vpc.name
   subnetwork = google_compute_subnetwork.subnet.name
@@ -31,7 +31,7 @@ resource "google_container_cluster" "primary" {
 # Separately Managed Node Pool
 resource "google_container_node_pool" "primary_nodes" {
   name       = google_container_cluster.primary.name
-  location   = "us-central1-b"
+  location   = "asia-east1-b"
   cluster    = google_container_cluster.primary.name
   node_count = var.gke_num_nodes
 
